@@ -6,17 +6,12 @@ import "./ShoppingCart.css"; // Import your styling
 const ShoppingCart = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
 
-  const handleUpdateQuantity = (productId, newQuantity) => {
-    console.log(productId);
-    console.log(newQuantity);
-
-    updateQuantity(productId, newQuantity);
-  };
   const calculateTotalPrice = () => {
     return cartItems
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
   };
+
   const handleCompletePurchase = () => {
     console.log("Purchase completed!");
   };
@@ -31,28 +26,24 @@ const ShoppingCart = () => {
         ) : (
           <ul>
             {cartItems.map((item) => (
-              <li key={item?.id} className="cart-item">
+              <li key={item.id} className="cart-item">
                 <div className="cart-item-details">
-                  <h3>{item?.name}</h3>
-                  <p>${item?.price?.toFixed(2)}</p>
+                  <h3>{item.name}</h3>
+                  <p>${item.price.toFixed(2)}</p>
                   <div className="quantity-controls">
                     <button
-                      onClick={() =>
-                        updateQuantity(item?.id, item?.quantity - 1)
-                      }
+                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
                     >
                       -
                     </button>
-                    <span>{item?.quantity}</span>
+                    <span>{item.quantity}</span>
                     <button
-                      onClick={() =>
-                        updateQuantity(item?.id, item?.quantity + 1)
-                      }
+                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
                     >
                       +
                     </button>
                   </div>
-                  <button onClick={() => removeFromCart(item?.id)}>
+                  <button onClick={() => removeFromCart(item.id)}>
                     Remove
                   </button>
                 </div>
